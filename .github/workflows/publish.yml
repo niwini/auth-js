@@ -6,6 +6,8 @@ on:
 
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   publish:
@@ -41,5 +43,6 @@ jobs:
           npm config set access public
           git config --global user.email niwibot@nosebit.com
           git config --global user.name niwibot
-          yarn lerna run build
-          yarn lerna publish --yes
+          yarn build
+          yarn semantic-release
+          
