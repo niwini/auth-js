@@ -3,4 +3,6 @@
 src
 scripts
 .npmignore
-tsconfig.build.json
+.eslintrc.js
+*.json
+!package.json
