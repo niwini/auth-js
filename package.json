@@ -6,6 +6,9 @@
     "build": "tsc --project tsconfig.build.json && cp package.json README.md ./dist",
     "test:unit": "NODE_ENV=test-unit yarn jest $@ --maxWorkers 2 --passWithNoTests --config ./jest.config.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@noble/hashes": "^1.1.3",
     "@noble/secp256k1": "^1.7.0",
