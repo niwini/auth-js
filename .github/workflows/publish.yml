@@ -36,9 +36,6 @@ jobs:
         run: yarn install
 
       - name: Publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          PUSHER_NAME: niwibot
         run: |
           npm config set access public
           git config --global user.email niwibot@nosebit.com
