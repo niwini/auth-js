@@ -1,7 +1,7 @@
 {
   "name": "@niwini/auth",
   "packageManager": "yarn@3.2.3",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "build": "tsc --project tsconfig.build.json && cp package.json README.md ./dist",
     "test:unit": "NODE_ENV=test-unit yarn jest $@ --maxWorkers 2 --passWithNoTests --config ./jest.config.js"

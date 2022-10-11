@@ -1,4 +1,4 @@
-import BufferLike from "./buffer";
+import { IBufferLikeInput } from "./buffer";
 interface IDocRecord {
     id: string;
     valBool?: boolean;
@@ -88,7 +88,7 @@ interface IAuthClientConfig {
     /**
      * Auth server private key.
      */
-    serverPvtKey: BufferLike;
+    serverPvtKey: IBufferLikeInput;
 }
 /**
  * This is the web client we use in web applications.

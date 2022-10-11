@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/niwini/auth-js/compare/v1.0.0...v1.0.1) (2022-10-11)
+
+
+### Bug Fixes
+
+* **client:** use buffer like input type instead of buffer like for serverPvtKey ([5192611](https://github.com/niwini/auth-js/commit/5192611397f39e982205fc0d41c090b5986f17e9))
+
 # 1.0.0 (2022-10-10)
 
 
