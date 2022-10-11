@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 import { totp } from "otplib";
 
 import * as aes from "./aes";
-import BufferLike from "./buffer";
+import BufferLike, { IBufferLikeInput } from "./buffer";
 import * as secp from "./secp";
 
 //#####################################################
@@ -137,7 +137,7 @@ interface IAuthClientConfig {
   /**
    * Auth server private key.
    */
-  serverPvtKey: BufferLike;
+  serverPvtKey: IBufferLikeInput;
 }
 
 //#####################################################
