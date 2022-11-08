@@ -1,6 +1,3 @@
-import https from "https";
-
-import axios, { AxiosInstance } from "axios";
 import dayjs from "dayjs";
 import { print } from "graphql";
 import gql from "graphql-tag";
@@ -9,6 +6,7 @@ import { totp } from "otplib";
 
 import * as aes from "./aes";
 import BufferLike, { IBufferLikeInput } from "./buffer";
+import remost, { IRemostFunction } from "./remost";
 import * as secp from "./secp";
 
 //#####################################################
@@ -153,9 +151,9 @@ const API_PORT = 9010;
  */
 class AuthClient<TUser extends Object = any> {
   /**
-   * Axios instance to contact bini server.
+   * Remost instance to contact bini server.
    */
-  private readonly _apiAxios: AxiosInstance;
+  private readonly _apiRemost: IRemostFunction;
 
   /**
    * Auth server private key.
@@ -176,11 +174,8 @@ class AuthClient<TUser extends Object = any> {
    */
   constructor(config: IAuthClientConfig) {
     this._pvtKey = BufferLike.from(config.serverPvtKey);
-    this._apiAxios = axios.create({
+    this._apiRemost = remost.create({
       baseURL: config.apiUrl ?? `https://api.niwini.io:${API_PORT}/gql`,
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
       method: "post",
     });
   }
@@ -237,7 +232,7 @@ class AuthClient<TUser extends Object = any> {
             documentById: sessionDoc,
           },
         },
-      } = await this._apiAxios.request<{
+      } = await this._apiRemost.request<{
         data: {
           documentById: IAuthSessionDoc;
         };
