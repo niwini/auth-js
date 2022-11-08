@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/niwini/auth-js/compare/v1.0.1...v1.1.0) (2022-11-08)
+
+
+### Features
+
+* use remost instead of axios to make http requests ([cd994c8](https://github.com/niwini/auth-js/commit/cd994c83ce984a2a259e3cf1c25eb8c5e0b03f3c))
+
 ## [1.0.1](https://github.com/niwini/auth-js/compare/v1.0.0...v1.0.1) (2022-10-11)
 
 

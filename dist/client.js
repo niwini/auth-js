@@ -27,8 +27,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthClient = exports.default = void 0;
-const https_1 = __importDefault(require("https"));
-const axios_1 = __importDefault(require("axios"));
 const dayjs_1 = __importDefault(require("dayjs"));
 const graphql_1 = require("graphql");
 const graphql_tag_1 = __importDefault(require("graphql-tag"));
@@ -36,6 +34,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const otplib_1 = require("otplib");
 const aes = __importStar(require("./aes"));
 const buffer_1 = __importDefault(require("./buffer"));
+const remost_1 = __importDefault(require("./remost"));
 const secp = __importStar(require("./secp"));
 //#####################################################
 // Constants
@@ -61,11 +60,8 @@ class AuthClient {
          */
         this._cache = new Map();
         this._pvtKey = buffer_1.default.from(config.serverPvtKey);
-        this._apiAxios = axios_1.default.create({
+        this._apiRemost = remost_1.default.create({
             baseURL: config.apiUrl ?? `https://api.niwini.io:${API_PORT}/gql`,
-            httpsAgent: new https_1.default.Agent({
-                rejectUnauthorized: false,
-            }),
             method: "post",
         });
     }
@@ -107,7 +103,7 @@ class AuthClient {
              * Make a request to Niwini server in order to resolve
              * the session.
              */
-            const { data: { data: { documentById: sessionDoc, }, }, } = await this._apiAxios.request({
+            const { data: { data: { documentById: sessionDoc, }, }, } = await this._apiRemost.request({
                 data: {
                     query: (0, graphql_1.print)((0, graphql_tag_1.default) `
             query webAuthSession(

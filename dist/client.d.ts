@@ -95,9 +95,9 @@ interface IAuthClientConfig {
  */
 declare class AuthClient<TUser extends Object = any> {
     /**
-     * Axios instance to contact bini server.
+     * Remost instance to contact bini server.
      */
-    private readonly _apiAxios;
+    private readonly _apiRemost;
     /**
      * Auth server private key.
      */
