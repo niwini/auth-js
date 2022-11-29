@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/niwini/auth-js/compare/v1.1.0...v1.2.0) (2022-11-29)
+
+
+### Features
+
+* replace axios entirely by remost for isomorphic fetch ([7bf9e9e](https://github.com/niwini/auth-js/commit/7bf9e9e2f5879f69c9de05b625ba75a881fb5f60))
+
 # [1.1.0](https://github.com/niwini/auth-js/compare/v1.0.1...v1.1.0) (2022-11-08)
 
 

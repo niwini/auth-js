@@ -1,4 +1,4 @@
-import { AxiosInstance } from "axios";
+import { IRemostFunction } from "../remost";
 declare type IClientEvent = "session:signed" | "session:deleted";
 interface IDocRecord {
     id: string;
@@ -122,9 +122,9 @@ export default class AuthWeb {
      */
     private readonly _initialized;
     /**
-     * Axios instance to contact our server.
+     * Remost instance to contact bini server.
      */
-    private readonly _apiAxios;
+    private readonly _apiRemost;
     /**
      * Graphql ws client.
      */
@@ -202,9 +202,9 @@ export default class AuthWeb {
      */
     get initialized(): Promise<void>;
     /**
-     * Get axios client.
+     * Get remost client.
      */
-    get apiAxios(): AxiosInstance;
+    get apiRemost(): IRemostFunction;
     /**
      * Check if we have an access token in place.
      */

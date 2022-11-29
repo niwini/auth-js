@@ -27,12 +27,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const preset_browser_1 = require("@otplib/preset-browser");
-const axios_1 = __importDefault(require("axios"));
 const graphql_1 = require("graphql");
 const graphql_tag_1 = __importDefault(require("graphql-tag"));
 const graphql_ws_1 = require("graphql-ws");
 const lodash_1 = __importDefault(require("lodash"));
 const nanoid_1 = require("nanoid");
+const remost_1 = __importDefault(require("../remost"));
 const hash = __importStar(require("./hash"));
 //#####################################################
 // Constants
@@ -81,10 +81,9 @@ class AuthWeb {
         this._isSigned = false;
         this._storage = config.storage ?? localStorage;
         const apiUrl = config.apiUrl ?? `https://api.niwini.io:${API_PORT}/gql`;
-        this._apiAxios = axios_1.default.create({
+        this._apiRemost = remost_1.default.create({
             baseURL: apiUrl,
             method: "post",
-            withCredentials: true,
         });
         /**
          * Check this:
@@ -116,7 +115,7 @@ class AuthWeb {
         /**
          * First get current server pub key.
          */
-        this._serverPubKey = await this._apiAxios.request({
+        this._serverPubKey = await this._apiRemost.request({
             data: {
                 query: (0, graphql_1.print)((0, graphql_tag_1.default) `
           query webAuthServer($id: String!) {
@@ -147,7 +146,7 @@ class AuthWeb {
          */
         if (this._accessToken) {
             try {
-                const { data: { data: { authAccessTokenRefresh: authData, }, }, } = await this._apiAxios.request({
+                const { data: { data: { authAccessTokenRefresh: authData, }, }, } = await this._apiRemost.request({
                     data: {
                         query: (0, graphql_1.print)((0, graphql_tag_1.default) `
               mutation webAuthAccessTokenRefresh($accessToken: String!) {
@@ -183,7 +182,7 @@ class AuthWeb {
      * @param evt.code -
      */
     async _handleSignedEvent(evt) {
-        const { data: { data: { authSessionActivate: authData, }, }, } = await this._apiAxios.request({
+        const { data: { data: { authSessionActivate: authData, }, }, } = await this._apiRemost.request({
             data: {
                 query: (0, graphql_1.print)((0, graphql_tag_1.default) `
           mutation webAuthSessionActivate($code: String!, $verifier: String!) {
@@ -244,10 +243,10 @@ class AuthWeb {
         return this._initialized;
     }
     /**
-     * Get axios client.
+     * Get remost client.
      */
-    get apiAxios() {
-        return this._apiAxios;
+    get apiRemost() {
+        return this._apiRemost;
     }
     /**
      * Check if we have an access token in place.
@@ -270,7 +269,7 @@ class AuthWeb {
          */
         this._codeVerifier = (0, nanoid_1.nanoid)();
         const codeChallenge = hash.sha256(this._codeVerifier).toHex();
-        const { data: { data: { authSessionCreate: session, }, }, } = await this._apiAxios.request({
+        const { data: { data: { authSessionCreate: session, }, }, } = await this._apiRemost.request({
             data: {
                 query: (0, graphql_1.print)((0, graphql_tag_1.default) `
           mutation webAuthSessionCreate(
@@ -348,7 +347,7 @@ class AuthWeb {
      * @param session - The signed session containing user encoded data.
      */
     async signin(session) {
-        const { data: { data: { authSessionSignin, }, }, } = await this._apiAxios.request({
+        const { data: { data: { authSessionSignin, }, }, } = await this._apiRemost.request({
             data: {
                 query: (0, graphql_1.print)((0, graphql_tag_1.default) `
           mutation webAuthSessionSignin(
