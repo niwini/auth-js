@@ -1,5 +1,4 @@
 import { totp } from "@otplib/preset-browser";
-import axios, { AxiosInstance } from "axios";
 import { print } from "graphql";
 import gql from "graphql-tag";
 import {
@@ -8,6 +7,8 @@ import {
 } from "graphql-ws";
 import _ from "lodash";
 import { nanoid } from "nanoid";
+
+import remost, { IRemostFunction } from "../remost";
 
 import * as hash from "./hash";
 
@@ -188,9 +189,9 @@ export default class AuthWeb {
   private readonly _initialized: Promise<void>;
 
   /**
-   * Axios instance to contact our server.
+   * Remost instance to contact bini server.
    */
-  private readonly _apiAxios: AxiosInstance;
+  private readonly _apiRemost: IRemostFunction;
 
   /**
    * Graphql ws client.
@@ -247,10 +248,9 @@ export default class AuthWeb {
 
     const apiUrl = config.apiUrl ?? `https://api.niwini.io:${API_PORT}/gql`;
 
-    this._apiAxios = axios.create({
+    this._apiRemost = remost.create({
       baseURL: apiUrl,
       method: "post",
-      withCredentials: true,
     });
 
     /**
@@ -274,7 +274,7 @@ export default class AuthWeb {
     /**
      * First get current server pub key.
      */
-    this._serverPubKey = await this._apiAxios.request<{
+    this._serverPubKey = await this._apiRemost.request<{
       data: {
         authServer: {
           pubKey: string;
@@ -322,7 +322,7 @@ export default class AuthWeb {
               authAccessTokenRefresh: authData,
             },
           },
-        } = await this._apiAxios.request<{
+        } = await this._apiRemost.request<{
           data: {
             authAccessTokenRefresh: IAuthData;
           };
@@ -375,7 +375,7 @@ export default class AuthWeb {
           authSessionActivate: authData,
         },
       },
-    } = await this._apiAxios.request<{
+    } = await this._apiRemost.request<{
       data: {
         authSessionActivate: IAuthData;
       };
@@ -452,10 +452,10 @@ export default class AuthWeb {
   }
 
   /**
-   * Get axios client.
+   * Get remost client.
    */
-  get apiAxios() {
-    return this._apiAxios;
+  get apiRemost() {
+    return this._apiRemost;
   }
 
   /**
@@ -490,7 +490,7 @@ export default class AuthWeb {
           authSessionCreate: session,
         },
       },
-    } = await this._apiAxios.request<{
+    } = await this._apiRemost.request<{
       data: {
         authSessionCreate: IAuthSessionDoc;
       };
@@ -588,7 +588,7 @@ export default class AuthWeb {
           authSessionSignin,
         },
       },
-    } = await this._apiAxios.request<{
+    } = await this._apiRemost.request<{
       data: {
         authSessionSignin: {
           ok: boolean;
