@@ -1,0 +1,8 @@
+**/*.ts
+!**/*.d.ts
+src
+scripts
+.npmignore
+.eslintrc.js
+*.json
+!package.json

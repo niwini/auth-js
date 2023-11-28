@@ -1,0 +1,50 @@
+name: main
+
+on:
+  push:
+    branches:    
+      - main
+
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+  
+    # https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+    steps:
+      - name: Install Build Essential
+        run: sudo apt install -y build-essential
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: main
+          token: ${{ env.GH_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm config set access public
+          git config --global user.email niwibot@nosebit.com
+          git config --global user.name niwibot
+          yarn build
+          yarn semantic-release
+          

@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "strictNullChecks": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "./src/**/*",
+    "./*.js",
+    "./*.ts",
+    "./.eslintrc.js"
+  ]
+}
