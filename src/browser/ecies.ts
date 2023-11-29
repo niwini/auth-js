@@ -1,27 +1,28 @@
 import _ from "lodash";
 
+import { TCipherParams, TECIES } from "../core/ecies.types";
+import { equalConstTime } from "../core/time";
+
 import aes from "./aes";
 import BufferLike, { TBufferLikeInput } from "./buffer";
-import { TCipherParams, TECIES } from "./core/ecies.types";
-import { equalConstTime } from "./core/time";
 import hash from "./hash";
 import secp from "./secp";
 
 /**
- * This class implements the ECIES module for NodeJS.
+ * ECIES module implementation for Browser.
  */
-const ecies: TECIES = {
+const ecies: TECIES<BufferLike> = {
   /**
    * This function encrypt a message using AES ECIES.
    *
    * @param msg - The stringified message.
    * @param pvtKey - Decryptor private key.
    */
-  decrypt<TData = string>(
-    msg: string | TCipherParams,
+  decrypt(
+    msg: string | TCipherParams<BufferLike>,
     pvtKey: TBufferLikeInput,
   ) {
-    let params: TCipherParams;
+    let params: TCipherParams<BufferLike>;
 
     if (_.isString(msg)) {
       const msgBuff = BufferLike.from(msg);
@@ -65,14 +66,14 @@ const ecies: TECIES = {
       throw new Error("Bad Mac");
     }
 
-    return aes.decrypt<TData>(params, secret);
+    return aes.decrypt(params, secret);
   },
 
   /**
    * This function encrypt a message using AES ECIES.
    *
    * @param msg - The stringified message.
-   * @param pubKey - Decoder public key.
+   * @param pubKey - Decryptor public key.
    */
   encrypt(
     msg: TBufferLikeInput,

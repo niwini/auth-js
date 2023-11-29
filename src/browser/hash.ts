@@ -1,19 +1,20 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { hmac } from "@noble/hashes/hmac";
-import { sha256 as nobleSha256 } from "@noble/hashes/sha256";
+/* eslint-disable import/prefer-default-export */
+import jsHmac256 from "crypto-js/hmac-sha256";
+import jsSha256 from "crypto-js/sha256";
+import jsSha512 from "crypto-js/sha512";
 import {
-  keccak_256,
-  sha3_256 as nobleSha3_256,
-} from "@noble/hashes/sha3";
-import { sha512 as nobleSha512 } from "@noble/hashes/sha512";
+  keccak256 as jsKeccak256,
+  sha3_256 as jsSha3_256,
+} from "js-sha3";
+
+import { THash } from "../core/hash.types";
 
 import BufferLike, { TBufferLikeInput } from "./buffer";
-import { THash } from "./core/hash.types";
 
 /**
- * This is the main class implementing the hashing module.
+ * Hash module implementation for browser.
  */
-const hash: THash = {
+const hash: THash<BufferLike> = {
   /**
    * This function is going to hash a message using
    * sha3 256 bits (= 32 bytes) keccak algorithm.
@@ -26,10 +27,9 @@ const hash: THash = {
     secret: TBufferLikeInput,
   ) {
     return BufferLike.from(
-      hmac(
-        nobleSha256,
-        BufferLike.cast(secret).toBuffer(),
-        BufferLike.cast(msg).toBuffer(),
+      jsHmac256(
+        BufferLike.cast(msg).toWordArray(),
+        BufferLike.cast(secret).toWordArray(),
       ),
     );
   },
@@ -44,7 +44,7 @@ const hash: THash = {
     msg: TBufferLikeInput,
   ) {
     return BufferLike.from(
-      keccak_256(BufferLike.cast(msg).toBuffer()),
+      jsKeccak256(BufferLike.cast(msg).toBuffer()),
     );
   },
 
@@ -58,7 +58,7 @@ const hash: THash = {
     msg: TBufferLikeInput,
   ) {
     return BufferLike.from(
-      nobleSha256(BufferLike.cast(msg).toBuffer()),
+      jsSha256(BufferLike.cast(msg).toWordArray()),
     );
   },
 
@@ -68,11 +68,11 @@ const hash: THash = {
    *
    * @param msg -
    */
-  sha3_256(
+  sha3_256( // eslint-disable-line @typescript-eslint/naming-convention
     msg: TBufferLikeInput,
   ) {
     return BufferLike.from(
-      nobleSha3_256(BufferLike.cast(msg).toBuffer()),
+      jsSha3_256(BufferLike.cast(msg).toBuffer()),
     );
   },
 
@@ -86,7 +86,7 @@ const hash: THash = {
     msg: TBufferLikeInput,
   ) {
     return BufferLike.from(
-      nobleSha512(BufferLike.cast(msg).toBuffer()),
+      jsSha512(BufferLike.cast(msg).toWordArray()),
     );
   },
 };

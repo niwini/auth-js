@@ -1,6 +1,6 @@
-import * as nodeAes from "../aes";
+import nodeAes from "../aes";
 
-import * as aes from "./aes";
+import aes from "./aes";
 
 //#####################################################
 // Constants
@@ -10,7 +10,7 @@ const SECRET = "shhh..";
 //#####################################################
 // Test definitions
 //#####################################################
-describe("[web] aes", () => {
+describe("[browser] aes", () => {
   it("should be able to encrypt and decrypt", async () => {
     const msg = "This is a test message";
     const encrypted = aes.encrypt(msg, SECRET).toHex();

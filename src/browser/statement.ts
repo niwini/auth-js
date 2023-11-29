@@ -1,4 +1,5 @@
-import { CertificateBase, StatementBase } from "./core/statement";
+import { CertificateBase, StatementBase } from "../core/statement";
+
 import crypto from "./crypto";
 
 //#####################################################
@@ -24,5 +25,5 @@ export class Statement<TData = any> extends StatementBase<TData> {
   };
 }
 
-export * from "./core/statement.types";
+export * from "../core/statement.types";
 export { Statement as default };

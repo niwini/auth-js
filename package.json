@@ -3,7 +3,7 @@
   "packageManager": "yarn@3.4.1",
   "version": "0.0.0",
   "main": "src/index.ts",
-  "browser": "src/web.ts",
+  "browser": "src/browser.ts",
   "scripts": {
     "build": "tsc --project tsconfig.build.json && cp package.json README.md ./dist",
     "lint": "eslint . --ext .ts,.js",

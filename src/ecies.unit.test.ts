@@ -1,5 +1,5 @@
-import * as ecies from "./ecies";
-import * as secp from "./secp";
+import ecies from "./ecies";
+import secp from "./secp";
 
 //#####################################################
 // Constants

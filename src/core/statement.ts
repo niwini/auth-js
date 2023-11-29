@@ -1,12 +1,11 @@
+import { TBufferLikeInput } from "./buffer.types";
+import { TCrypto } from "./crypto.types";
+import DocumentBase from "./document";
 import {
   TCertificateObj,
   TStatementObj,
-} from "../statement.types";
-import { IPartialRequired } from "../types";
-
-import { TBufferLikeInput } from "./buffer";
-import Document from "./document";
-import * as secp from "./secp";
+} from "./statement.types";
+import { IPartialRequired } from "./types";
 
 //#####################################################
 // Certificate
@@ -14,15 +13,20 @@ import * as secp from "./secp";
 /**
  * This class implements a certificate document.
  */
-export class Certificate<TData = any> extends Document<
+export class CertificateBase<TData = any> extends DocumentBase<
   TData,
   TCertificateObj["header"],
   TCertificateObj["category"]
 > {
   /**
+   * This is the SECP module we are going to use.
+   */
+  protected _crypto: TCrypto;
+
+  /**
    * The statement which this certificate is associated with.
    */
-  private readonly _stmt: Statement;
+  private readonly _stmt: StatementBase;
 
   /**
    * Creates a new instance of this class.
@@ -31,7 +35,7 @@ export class Certificate<TData = any> extends Document<
    * @param obj - The underlying certificate object.
    */
   constructor(
-    stmt: Statement,
+    stmt: StatementBase,
     obj: IPartialRequired<TCertificateObj<TData>, "pubkey">,
   ) {
     if (obj.category && obj.category !== "certificate") {
@@ -88,7 +92,7 @@ export class Certificate<TData = any> extends Document<
   public async sign(args: {
     pvtkey: TBufferLikeInput;
   }) {
-    this._obj.header.signature = (await secp.sign(
+    this._obj.header.signature = (await this._crypto.secp.sign(
       this._hashToSign(),
       args.pvtkey,
     )).toHex();
@@ -106,7 +110,7 @@ export class Certificate<TData = any> extends Document<
     let isValid = false;
 
     try {
-      isValid = await secp.signVerify(
+      isValid = await this._crypto.secp.signVerify(
         this._obj.header.signature,
         this._hashToSign(),
         this._obj.pubkey,
@@ -128,30 +132,17 @@ export class Certificate<TData = any> extends Document<
 /**
  * This class implements a general statement document.
  */
-export class Statement<TData = any> extends Document<
+export abstract class StatementBase<TData = any> extends DocumentBase<
   TStatementObj["data"],
   TStatementObj["header"],
   TStatementObj["category"]
 > {
   /**
-   * Creates a document from base64 representation.
-   *
-   * @param str - The base64 string representation of this document.
+   * This is the SECP module we are going to use.
    */
-  public static fromBase64(str: string) {
-    const obj = JSON.parse(Buffer.from(str, "base64").toString());
-
-    return new Statement(obj);
-  }
-
-  /**
-   * Get the certificates of this document.
-   */
-  get certificates(): Certificate[] {
-    return this._obj.header.certificates.map(
-      (crt) => new Certificate(this, crt),
-    );
-  }
+  protected _crypto: TCrypto & {
+    Certificate: typeof CertificateBase;
+  };
 
   /**
    * Creates a new instance of this class.
@@ -177,6 +168,32 @@ export class Statement<TData = any> extends Document<
   }
 
   /**
+   * Get the certificates of this document.
+   */
+  get certificates(): CertificateBase[] {
+    return this._obj.header.certificates.map(
+
+      /**
+       * For some reason we need to cast crt to any here
+       * because on running 'yarn build' typescript is throwing
+       * the following error:
+       *
+       * src/core/statement.ts:175:51 - error TS2345: Argument of type '{ data?: any; _id?: string; created_at?: Date; is_encrypted?: boolean; pubkey?: string; variant?: string; category?: "certificate"; header?: { signature?: string; }; }' is not assignable to parameter of type 'IPartialRequired<TCertificateObj<any>, "pubkey">'.
+       * Type '{ data?: any; _id?: string; created_at?: Date; is_encrypted?: boolean; pubkey?: string; variant?: string; category?: "certificate"; header?: { signature?: string; }; }' is not assignable to type 'Required<Pick<TCertificateObj<any>, "pubkey">>'.
+       * Property 'pubkey' is optional in type '{ data?: any; _id?: string; created_at?: Date; is_encrypted?: boolean; pubkey?: string; variant?: string; category?: "certificate"; header?: { signature?: string; }; }' but required in type 'Required<Pick<TCertificateObj<any>, "pubkey">>'.
+       *
+       * 175       (crt) => new this._crypto.Certificate(this, crt),
+       *
+       * Found 1 error in src/core/statement.ts:175
+       *
+       * @param crt -
+       */
+      (crt) =>
+        new this._crypto.Certificate(this, crt as any),
+    );
+  }
+
+  /**
    * This function is going to certify this statement.
    *
    * @param args -
@@ -192,12 +209,12 @@ export class Statement<TData = any> extends Document<
     /**
      * First check if this document is valid.
      */
-    const { pubkey } = secp.genKeyPair({ pvtkey: args.pvtkey });
+    const { pubkey } = this._crypto.secp.genKeyPair({ pvtkey: args.pvtkey });
 
     /**
      * Generate the certificate (which is another doc).
      */
-    const certificate = new Certificate(this, {
+    const certificate = new this._crypto.Certificate(this, {
       data: args.data,
       pubkey: pubkey.toHex(),
       variant: args.variant,
@@ -268,5 +285,5 @@ export class Statement<TData = any> extends Document<
   }
 }
 
-export * from "../statement.types";
-export { Statement as default };
+export * from "./statement.types";
+export { StatementBase as default };

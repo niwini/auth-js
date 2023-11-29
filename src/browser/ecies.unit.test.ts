@@ -1,5 +1,5 @@
-import * as ecies from "./ecies";
-import * as secp from "./secp";
+import ecies from "./ecies";
+import secp from "./secp";
 
 //#####################################################
 // Constants
@@ -9,7 +9,7 @@ const keys = secp.genKeyPair();
 //#####################################################
 // Test definitions
 //#####################################################
-describe("[web] ecies", () => {
+describe("[browser] ecies", () => {
   it("should encrypt and decrypt message correctly using ecies", async () => {
     const msg = "This is a test message";
     const encrypted = ecies.encrypt(msg, keys.pubkey).toHex();

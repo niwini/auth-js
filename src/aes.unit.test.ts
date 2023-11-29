@@ -1,4 +1,4 @@
-import * as aes from "./aes";
+import aes from "./aes";
 
 //#####################################################
 // Constants

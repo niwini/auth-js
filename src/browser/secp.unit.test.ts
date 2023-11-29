@@ -1,14 +1,14 @@
 import _ from "lodash";
 
-import * as nodeSecp from "../secp";
+import nodeSecp from "../secp";
 
 import BufferLike from "./buffer";
-import * as secp from "./secp";
+import secp from "./secp";
 
 //#####################################################
 // Test definitions
 //#####################################################
-describe("[web] secp", () => {
+describe("[browser] secp", () => {
   it("should correctly generate a shared secret", async () => {
     const targetKeys = secp.genKeyPair();
     const ephKeys = secp.genKeyPair();

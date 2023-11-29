@@ -1,8 +1,9 @@
 /* eslint-disable max-classes-per-file */
-import { DocumentBase } from "./core/document";
+import { DocumentBase } from "../core/document";
 import {
   TDocumentHeader,
-} from "./core/document.types";
+} from "../core/document.types";
+
 import crypto from "./crypto";
 
 //#####################################################
@@ -30,5 +31,5 @@ export class Document<
   protected _crypto = crypto;
 }
 
-export * from "./core/document.types";
+export * from "../core/document.types";
 export { Document as default };

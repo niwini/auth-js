@@ -1,4 +1,4 @@
-import * as secp from "./secp";
+import secp from "./secp";
 
 //#####################################################
 // Test definitions

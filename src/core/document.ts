@@ -3,15 +3,15 @@ import _ from "lodash";
 import QRCode from "qrcode";
 
 import {
+  TBufferLikeInput,
+} from "./buffer.types";
+import { TCrypto } from "./crypto.types";
+import {
   TDocumentHeader,
   TDocumentObj,
-} from "../document.types";
-import { IdGenerator } from "../id";
-import { IPartialRequired } from "../types";
-
-import BufferLike, { TBufferLikeInput } from "./buffer";
-import * as ecies from "./ecies";
-import { keccak256 } from "./hash";
+} from "./document.types";
+import { IdGenerator } from "./id";
+import { IPartialRequired } from "./types";
 
 //#####################################################
 // Constant
@@ -24,21 +24,18 @@ const idGen = new IdGenerator({ prefix: "doc" });
 /**
  * This function implements a base document.
  */
-export class Document<
+export abstract class DocumentBase<
   TData = any,
   THeader extends TDocumentHeader = TDocumentHeader,
   TCategory extends string = string
 > {
   /**
-   * Creates a document from base64 representation.
-   *
-   * @param str - The base64 string representation of this document.
+   * The auth module to use.
    */
-  public static fromBase64(str: string) {
-    const obj = JSON.parse(Buffer.from(str, "base64").toString());
-
-    return new Document(obj);
-  }
+  protected _crypto: Pick<
+    TCrypto,
+    "BufferLike" | "ecies" | "hash"
+  >;
 
   /**
    * Underlying document object.
@@ -128,8 +125,10 @@ export class Document<
    * document.
    */
   get hash() {
-    const buff = BufferLike.cast(_.omit(this.toObject(), "header"));
-    return keccak256(buff).toHex();
+    const buff = this._crypto.BufferLike.cast(
+      _.omit(this.toObject(), "header"),
+    );
+    return this._crypto.hash.keccak256(buff).toHex();
   }
 
   /**
@@ -142,10 +141,13 @@ export class Document<
       return;
     }
 
-    this._obj.data = ecies.decrypt(this._obj.data as string, pvtkey);
+    this._obj.data = this._crypto.ecies.decrypt(
+      this._obj.data as string,
+      pvtkey,
+    );
 
     try {
-      this._obj.data = JSON.parse(this._obj.data) as TData;
+      this._obj.data = JSON.parse(this._obj.data as string) as TData;
     } catch (error) {
       // Do nothing.
     }
@@ -163,7 +165,7 @@ export class Document<
       return;
     }
 
-    this._obj.data = ecies.encrypt(
+    this._obj.data = this._crypto.ecies.encrypt(
       this._obj.data,
       pubkey ?? this._obj.pubkey,
     ).toHex();
@@ -193,5 +195,5 @@ export class Document<
   }
 }
 
-export * from "../document.types";
-export { Document as default };
+export * from "./document.types";
+export { DocumentBase as default };

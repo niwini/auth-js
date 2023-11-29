@@ -1,4 +1,4 @@
-import * as hash from "./hash";
+import hash from "./hash";
 
 //#####################################################
 // Test definitions

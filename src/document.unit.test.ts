@@ -1,14 +1,14 @@
 import _ from "lodash";
 
-import BufferLike from "./buffer";
+import { TBufferLike } from "./buffer";
 import Document, { TDocumentObj } from "./document";
-import * as secp from "./secp";
+import secp from "./secp";
 
 //#####################################################
 // Test definitions
 //#####################################################
-let pubkey: BufferLike;
-let pvtkey: BufferLike;
+let pubkey: TBufferLike;
+let pvtkey: TBufferLike;
 let doc: Document;
 
 /**

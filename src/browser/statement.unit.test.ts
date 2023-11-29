@@ -27,7 +27,7 @@ function setupStatement(obj?: Omit<Partial<TStatementObj>, "pubkey">) {
   });
 }
 
-describe("statement", () => {
+describe("[browser] statement", () => {
   beforeEach(() => {
     setupStatement();
   });

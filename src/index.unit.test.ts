@@ -1,8 +1,8 @@
 import { nanoid } from "nanoid";
 import { z } from "zod";
 
-import * as hash from "./hash";
-import * as secp from "./secp";
+import hash from "./hash";
+import secp from "./secp";
 import Statement, { TStatementObj } from "./statement";
 
 //#####################################################

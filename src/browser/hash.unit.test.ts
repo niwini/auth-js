@@ -1,9 +1,9 @@
-import * as hash from "./hash";
+import hash from "./hash";
 
 //#####################################################
 // Test definitions
 //#####################################################
-describe("[web] hash", () => {
+describe("[browser] hash", () => {
   it("should hash message correctly using sha256", async () => {
     const sha = hash.sha256("This is a test message").toHex();
 

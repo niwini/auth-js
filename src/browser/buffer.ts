@@ -3,7 +3,7 @@ import WordArray from "crypto-js/lib-typedarrays";
 import stringify from "json-stable-stringify";
 import _ from "lodash";
 
-import {} from "./utils";
+import { TBufferLike } from "../core/buffer.types";
 
 //#####################################################
 // Types
@@ -113,8 +113,19 @@ function wordArrayToBuffer(wordArray: WordArray): Buffer {
  * This is a class which wraps a buffer and offer some
  * util conversion functions.
  */
-export default class BufferLike {
+export default class BufferLike implements TBufferLike {
   private readonly _buff: Buffer;
+
+  /**
+   * Creates a random buffer like with provided size.
+   *
+   * @param size - The size of the random buffer to create.
+   */
+  public static random(size: number) {
+    const buff = WordArray.random(size);
+
+    return BufferLike.from(buff);
+  }
 
   /**
    * Creates a new buffer like.
@@ -283,3 +294,5 @@ export default class BufferLike {
 export function makeBufferLike(input: TBufferLikeInput) {
   return BufferLike.cast(input);
 }
+
+export * from "../core/buffer.types";

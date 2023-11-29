@@ -3,14 +3,13 @@ import crypto from "crypto";
 import stringify from "json-stable-stringify";
 import _ from "lodash";
 
-export type TBufferLikeInput
-  = string | Object | Buffer | Uint8Array | BufferLike;
+import { TBufferLike, TBufferLikeInput } from "./core/buffer.types";
 
 /**
  * This is a class which wraps a buffer and offer some
  * util conversion functions.
  */
-export default class BufferLike {
+export default class BufferLike implements TBufferLike {
   private readonly _buff: Buffer;
 
   /**
@@ -59,7 +58,7 @@ export default class BufferLike {
    *
    * @param {...any} items - Data to concat.
    */
-  public static concat(items: BufferLike[]) {
+  public static concat(items: TBufferLike[]) {
     const buff = Buffer.concat(
       items.map((item) => item.toBuffer()),
     );
@@ -180,3 +179,5 @@ export default class BufferLike {
 export function makeBufferLike(input: TBufferLikeInput) {
   return BufferLike.cast(input);
 }
+
+export * from "./core/buffer.types";

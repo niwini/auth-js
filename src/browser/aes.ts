@@ -1,17 +1,21 @@
-import crypto from "crypto";
-
+/* eslint-disable new-cap */
+import { algo } from "crypto-js";
+import AES from "crypto-js/aes";
+import ENC_HEX from "crypto-js/enc-hex";
+import ENC_UTF8 from "crypto-js/enc-utf8";
+import FORMAT_HEX from "crypto-js/format-hex";
+import WordArray from "crypto-js/lib-typedarrays";
+import PBKDF2 from "crypto-js/pbkdf2";
 import _ from "lodash";
 
+import { TAES, TCipherParams } from "../core/aes.types";
+
 import BufferLike, { TBufferLikeInput } from "./buffer";
-import {
-  TAES,
-  TCipherParams,
-} from "./core/aes.types";
 
 /**
- * AES module implementation for NodeJS.
+ * AES module implementation for Browser.
  */
-const aes: TAES = {
+const aes: TAES<BufferLike> = {
   /**
    * This function encrypt a message using AES.
    *
@@ -19,17 +23,13 @@ const aes: TAES = {
    * @param secret - The encryption secret.
    */
   decrypt<TData = string>(
-    msg: string | TCipherParams,
+    msg: string | TCipherParams<BufferLike>,
     secret: TBufferLikeInput,
   ) {
-    let params: TCipherParams;
+    let params: TCipherParams<BufferLike>;
 
-    if (_.isString(msg)) {
+    if (typeof msg === "string") {
       const msgBuff = BufferLike.cast(msg);
-
-      if (msgBuff.size <= 24) {
-        throw new Error("invalid buffer size");
-      }
 
       params = {
         ciphertext: msgBuff.slice(24),
@@ -41,23 +41,24 @@ const aes: TAES = {
     }
 
     // eslint-disable-next-line no-sync
-    const key = crypto.pbkdf2Sync(
-      BufferLike.cast(secret).toBuffer(),
-      params.salt.toBuffer(),
-      5000,
-      24,
-      "sha512",
+    const key = PBKDF2(
+      BufferLike.cast(secret).toWordArray(),
+      params.salt.toWordArray(),
+      {
+        hasher: algo.SHA512,
+        iterations: 5000,
+        keySize: 24 / 4,
+      },
     );
 
-    const decipher = crypto.createDecipheriv(
-      "aes-192-cbc",
+    const decrypted = AES.decrypt(
+      params.ciphertext.toHex({ raw: true }),
       key,
-      params.iv.toBuffer(),
-    );
-    const decrypted = Buffer.concat([
-      decipher.update(params.ciphertext.toBuffer()),
-      decipher.final(),
-    ]).toString("utf8");
+      {
+        format: FORMAT_HEX,
+        iv: params.iv.toWordArray(),
+      },
+    ).toString(ENC_UTF8);
 
     try {
       return JSON.parse(decrypted) as TData;
@@ -71,30 +72,30 @@ const aes: TAES = {
   /**
    * This function encrypt a message using AES.
    *
-   * @param msg - Message to encrypt.
+   * @param msg - The stringified message.
    * @param secret - The encryption secret.
    */
   encrypt(
     msg: TBufferLikeInput,
     secret: TBufferLikeInput,
   ) {
-    // eslint-disable-next-line no-sync
-    const iv = crypto.randomBytes(16);
-    const salt = crypto.randomBytes(8);
-    // eslint-disable-next-line no-sync
-    const key = crypto.pbkdf2Sync(
-      BufferLike.cast(secret).toBuffer(),
+    const iv = WordArray.random(16);
+    const salt = WordArray.random(8);
+    const key = PBKDF2(
+      BufferLike.cast(secret).toWordArray(),
       salt,
-      5000,
-      24,
-      "sha512",
+      {
+        hasher: algo.SHA512,
+        iterations: 5000,
+        keySize: 24 / 4,
+      },
     );
 
-    const cipher = crypto.createCipheriv("aes-192-cbc", key, iv);
-    const ciphertext = Buffer.concat([
-      cipher.update(BufferLike.cast(msg).toBuffer()),
-      cipher.final(),
-    ]);
+    const ciphertext = `0x${AES.encrypt(
+      BufferLike.cast(msg).toWordArray(),
+      key,
+      { iv },
+    ).ciphertext.toString(ENC_HEX)}`;
 
     return {
       ciphertext: BufferLike.from(ciphertext),
