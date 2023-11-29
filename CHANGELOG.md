@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/niwini/auth-js/compare/v3.0.0...v3.0.1) (2023-11-29)
+
+
+### Bug Fixes
+
+* use correct main and browser files in package.json ([dc3ede5](https://github.com/niwini/auth-js/commit/dc3ede55386461f52c64703edc7e974660d3ce07))
+
 # [3.0.0](https://github.com/niwini/auth-js/compare/v2.0.0...v3.0.0) (2023-11-29)
 
 
