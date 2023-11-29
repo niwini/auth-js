@@ -1,1 +1,0 @@
-# Niwini Auth JS SDK

@@ -2,8 +2,8 @@
   "name": "@niwini/auth",
   "packageManager": "yarn@3.4.1",
   "version": "3.0.0",
-  "main": "src/index.ts",
-  "browser": "src/browser.ts",
+  "main": "index.js",
+  "browser": "browser.js",
   "scripts": {
     "build": "tsc --project tsconfig.build.json && cp package.json README.md ./dist",
     "lint": "eslint . --ext .ts,.js",
