@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/niwini/auth-js/compare/v1.2.0...v2.0.0) (2023-11-29)
+
+
+### Features
+
+* add cz to bump major version ([d88ff10](https://github.com/niwini/auth-js/commit/d88ff10760c6022412a49cbb4a418037b239e043))
+
+
+### BREAKING CHANGES
+
+* All modules got refactored.
+
 # [1.2.0](https://github.com/niwini/auth-js/compare/v1.1.0...v1.2.0) (2023-11-29)
 
 
