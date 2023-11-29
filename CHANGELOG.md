@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/niwini/auth-js/compare/v1.1.0...v1.2.0) (2023-11-29)
+
+
+### Features
+
+* bump version to 2.0.0 so we can release ([95ac6fd](https://github.com/niwini/auth-js/commit/95ac6fda3e62e6b39a1c9bc5e49db27435233fad))
+
 # [1.1.0](https://github.com/niwini/auth-js/compare/v1.0.1...v1.1.0) (2023-11-29)
 
 
