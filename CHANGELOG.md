@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/niwini/auth-js/compare/v2.0.0...v3.0.0) (2023-11-29)
+
+
+### Features
+
+* force breaking change to release new version 3.0.0 ([9f731c2](https://github.com/niwini/auth-js/commit/9f731c2bb441b0f26cd4eca3826cf00ef8f31467))
+
+
+### BREAKING CHANGES
+
+* All modules got refactored.
+
 # [2.0.0](https://github.com/niwini/auth-js/compare/v1.2.0...v2.0.0) (2023-11-29)
 
 
