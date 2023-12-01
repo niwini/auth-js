@@ -9,7 +9,7 @@ export declare abstract class DocumentBase<TData = any, THeader extends TDocumen
     /**
      * The auth module to use.
      */
-    protected _crypto: Pick<TCrypto, "BufferLike" | "ecies" | "hash">;
+    protected abstract _crypto: Pick<TCrypto, "BufferLike" | "ecies" | "hash">;
     /**
      * Underlying document object.
      */
@@ -32,7 +32,7 @@ export declare abstract class DocumentBase<TData = any, THeader extends TDocumen
     /**
      * Get document variant.
      */
-    get variant(): string;
+    get variant(): string | undefined;
     /**
      * Get document category.
      */
@@ -45,7 +45,7 @@ export declare abstract class DocumentBase<TData = any, THeader extends TDocumen
     /**
      * Get document data.
      */
-    get data(): string | TData;
+    get data(): string | TData | undefined;
     /**
      * Get document is_encrypted.
      */
@@ -85,3 +85,4 @@ export declare abstract class DocumentBase<TData = any, THeader extends TDocumen
 }
 export * from "./document.types";
 export { DocumentBase as default };
+//# sourceMappingURL=document.d.ts.map

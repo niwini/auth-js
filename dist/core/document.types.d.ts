@@ -15,23 +15,23 @@ export declare const zDocumentObj: z.ZodObject<{
     pubkey: z.ZodString;
     variant: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    _id?: string;
-    category?: string;
-    created_at?: Date;
+    header: Record<string, any>;
+    _id: string;
+    category: string;
+    created_at: Date;
+    is_encrypted: boolean;
+    pubkey: string;
     data?: any;
-    header?: Record<string, any>;
-    is_encrypted?: boolean;
-    pubkey?: string;
-    variant?: string;
+    variant?: string | undefined;
 }, {
-    _id?: string;
-    category?: string;
-    created_at?: Date;
+    header: Record<string, any>;
+    _id: string;
+    category: string;
+    created_at: Date;
+    is_encrypted: boolean;
+    pubkey: string;
     data?: any;
-    header?: Record<string, any>;
-    is_encrypted?: boolean;
-    pubkey?: string;
-    variant?: string;
+    variant?: string | undefined;
 }>;
 export declare const zDocumentObjPart: z.ZodObject<{
     _id: z.ZodOptional<z.ZodString>;
@@ -43,23 +43,23 @@ export declare const zDocumentObjPart: z.ZodObject<{
     pubkey: z.ZodOptional<z.ZodString>;
     variant: z.ZodOptional<z.ZodOptional<z.ZodString>>;
 }, "strip", z.ZodTypeAny, {
-    _id?: string;
-    category?: string;
-    created_at?: Date;
+    _id?: string | undefined;
+    category?: string | undefined;
+    created_at?: Date | undefined;
     data?: any;
-    header?: Record<string, any>;
-    is_encrypted?: boolean;
-    pubkey?: string;
-    variant?: string;
+    header?: Record<string, any> | undefined;
+    is_encrypted?: boolean | undefined;
+    pubkey?: string | undefined;
+    variant?: string | undefined;
 }, {
-    _id?: string;
-    category?: string;
-    created_at?: Date;
+    _id?: string | undefined;
+    category?: string | undefined;
+    created_at?: Date | undefined;
     data?: any;
-    header?: Record<string, any>;
-    is_encrypted?: boolean;
-    pubkey?: string;
-    variant?: string;
+    header?: Record<string, any> | undefined;
+    is_encrypted?: boolean | undefined;
+    pubkey?: string | undefined;
+    variant?: string | undefined;
 }>;
 export type TDocumentHeader = Record<string, any>;
 export interface TDocumentObj<TData = any, THeader extends TDocumentHeader = TDocumentHeader, TCategory extends string = string> extends z.infer<typeof zDocumentObj> {
@@ -67,3 +67,4 @@ export interface TDocumentObj<TData = any, THeader extends TDocumentHeader = TDo
     data?: TData | string;
     header: THeader;
 }
+//# sourceMappingURL=document.types.d.ts.map

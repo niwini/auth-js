@@ -5,3 +5,4 @@ import BufferLike from "./buffer";
  */
 declare const ecies: TECIES<BufferLike>;
 export default ecies;
+//# sourceMappingURL=ecies.d.ts.map

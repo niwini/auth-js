@@ -40,3 +40,4 @@ export interface THash<IBufferLike extends TBufferLike = TBufferLike> {
      */
     keccak256(msg: TBufferLikeInput): IBufferLike;
 }
+//# sourceMappingURL=hash.types.d.ts.map

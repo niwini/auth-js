@@ -7,3 +7,4 @@ export declare const ec: EC;
  */
 declare const secp: TSECP<BufferLike>;
 export default secp;
+//# sourceMappingURL=secp.d.ts.map

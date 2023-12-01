@@ -20,3 +20,4 @@ export declare class Document<TData = any, THeader extends TDocumentHeader = TDo
 }
 export * from "../core/document.types";
 export { Document as default };
+//# sourceMappingURL=document.d.ts.map

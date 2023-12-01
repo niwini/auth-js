@@ -52,3 +52,4 @@ export interface TSECP<IBufferLike extends TBufferLike = TBufferLike> {
      */
     signVerify(signature: TBufferLikeInput, payload: TBufferLikeInput, pubKey: TBufferLikeInput): Promise<boolean>;
 }
+//# sourceMappingURL=secp.types.d.ts.map

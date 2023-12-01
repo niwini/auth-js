@@ -26,3 +26,4 @@ declare const remost: TRemostFunction;
  * Export the main remost function as the default one.
  */
 export default remost;
+//# sourceMappingURL=remost.d.ts.map

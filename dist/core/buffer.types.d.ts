@@ -79,3 +79,4 @@ export interface TBufferLikeClass {
      */
     concat(items: TBufferLike[]): TBufferLike;
 }
+//# sourceMappingURL=buffer.types.d.ts.map

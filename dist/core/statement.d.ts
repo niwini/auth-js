@@ -6,11 +6,11 @@ import { IPartialRequired } from "./types";
 /**
  * This class implements a certificate document.
  */
-export declare class CertificateBase<TData = any> extends DocumentBase<TData, TCertificateObj["header"], TCertificateObj["category"]> {
+export declare abstract class CertificateBase<TData = any> extends DocumentBase<TData, TCertificateObj["header"], TCertificateObj["category"]> {
     /**
      * This is the SECP module we are going to use.
      */
-    protected _crypto: TCrypto;
+    protected abstract _crypto: TCrypto;
     /**
      * The statement which this certificate is associated with.
      */
@@ -47,8 +47,8 @@ export declare abstract class StatementBase<TData = any> extends DocumentBase<TS
     /**
      * This is the SECP module we are going to use.
      */
-    protected _crypto: TCrypto & {
-        Certificate: typeof CertificateBase;
+    protected abstract _crypto: TCrypto & {
+        Certificate: new (stmt: StatementBase, obj: IPartialRequired<TCertificateObj<TData>, "pubkey">) => CertificateBase;
     };
     /**
      * Creates a new instance of this class.
@@ -90,3 +90,4 @@ export declare abstract class StatementBase<TData = any> extends DocumentBase<TS
 }
 export * from "./statement.types";
 export { StatementBase as default };
+//# sourceMappingURL=statement.d.ts.map

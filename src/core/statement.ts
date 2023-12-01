@@ -13,7 +13,7 @@ import { IPartialRequired } from "./types";
 /**
  * This class implements a certificate document.
  */
-export class CertificateBase<TData = any> extends DocumentBase<
+export abstract class CertificateBase<TData = any> extends DocumentBase<
   TData,
   TCertificateObj["header"],
   TCertificateObj["category"]
@@ -21,7 +21,7 @@ export class CertificateBase<TData = any> extends DocumentBase<
   /**
    * This is the SECP module we are going to use.
    */
-  protected _crypto: TCrypto;
+  protected abstract _crypto: TCrypto;
 
   /**
    * The statement which this certificate is associated with.
@@ -132,7 +132,9 @@ export class CertificateBase<TData = any> extends DocumentBase<
 /**
  * This class implements a general statement document.
  */
-export abstract class StatementBase<TData = any> extends DocumentBase<
+export abstract class StatementBase<
+  TData = any,
+> extends DocumentBase<
   TStatementObj["data"],
   TStatementObj["header"],
   TStatementObj["category"]
@@ -140,8 +142,11 @@ export abstract class StatementBase<TData = any> extends DocumentBase<
   /**
    * This is the SECP module we are going to use.
    */
-  protected _crypto: TCrypto & {
-    Certificate: typeof CertificateBase;
+  protected abstract _crypto: TCrypto & {
+    Certificate: new(
+      stmt: StatementBase,
+      obj: IPartialRequired<TCertificateObj<TData>, "pubkey">,
+    ) => CertificateBase;
   };
 
   /**

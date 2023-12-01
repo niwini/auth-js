@@ -26,3 +26,4 @@ export declare class Statement<TData = any> extends StatementBase<TData> {
 }
 export * from "../core/statement.types";
 export { Statement as default };
+//# sourceMappingURL=statement.d.ts.map

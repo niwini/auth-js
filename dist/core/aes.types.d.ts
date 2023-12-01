@@ -25,3 +25,4 @@ export interface TAES<IBufferLike extends TBufferLike = TBufferLike> {
      */
     decrypt<TData = string>(msg: string | TCipherParams<IBufferLike>, secret: TBufferLikeInput): TData | string;
 }
+//# sourceMappingURL=aes.types.d.ts.map

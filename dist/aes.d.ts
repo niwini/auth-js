@@ -4,3 +4,4 @@ import { TAES } from "./core/aes.types";
  */
 declare const aes: TAES;
 export default aes;
+//# sourceMappingURL=aes.d.ts.map

@@ -5,3 +5,4 @@ import BufferLike from "./buffer";
  */
 declare const aes: TAES<BufferLike>;
 export default aes;
+//# sourceMappingURL=aes.d.ts.map

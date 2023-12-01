@@ -10,3 +10,4 @@ export interface TCrypto {
     hash: THash;
     secp: TSECP;
 }
+//# sourceMappingURL=crypto.types.d.ts.map

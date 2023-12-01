@@ -27,3 +27,4 @@ export interface TECIES<IBufferLike extends TBufferLike = TBufferLike> {
      */
     decrypt<TData = string>(msg: string | TCipherParams<IBufferLike>, pvtKey: TBufferLikeInput): TData | string;
 }
+//# sourceMappingURL=ecies.types.d.ts.map

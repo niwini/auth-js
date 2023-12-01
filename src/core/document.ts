@@ -32,7 +32,7 @@ export abstract class DocumentBase<
   /**
    * The auth module to use.
    */
-  protected _crypto: Pick<
+  protected abstract _crypto: Pick<
     TCrypto,
     "BufferLike" | "ecies" | "hash"
   >;

@@ -17,3 +17,4 @@ export declare class IdGenerator {
      */
     new(): string;
 }
+//# sourceMappingURL=id.d.ts.map

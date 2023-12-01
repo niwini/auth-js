@@ -4,3 +4,4 @@ import { THash } from "./core/hash.types";
  */
 declare const hash: THash;
 export default hash;
+//# sourceMappingURL=hash.d.ts.map

@@ -10,32 +10,32 @@ export declare const zCertificateObj: z.ZodObject<{
     header: z.ZodObject<{
         signature: z.ZodOptional<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
-        signature?: string;
+        signature?: string | undefined;
     }, {
-        signature?: string;
+        signature?: string | undefined;
     }>;
 }, "strip", z.ZodTypeAny, {
-    data?: any;
-    _id?: string;
-    created_at?: Date;
-    is_encrypted?: boolean;
-    pubkey?: string;
-    variant?: string;
-    category?: "certificate";
-    header?: {
-        signature?: string;
+    header: {
+        signature?: string | undefined;
     };
+    _id: string;
+    category: "certificate";
+    created_at: Date;
+    is_encrypted: boolean;
+    pubkey: string;
+    data?: any;
+    variant?: string | undefined;
 }, {
-    data?: any;
-    _id?: string;
-    created_at?: Date;
-    is_encrypted?: boolean;
-    pubkey?: string;
-    variant?: string;
-    category?: "certificate";
-    header?: {
-        signature?: string;
+    header: {
+        signature?: string | undefined;
     };
+    _id: string;
+    category: "certificate";
+    created_at: Date;
+    is_encrypted: boolean;
+    pubkey: string;
+    data?: any;
+    variant?: string | undefined;
 }>;
 export interface TCertificateObj<TData = any> extends z.infer<typeof zCertificateObj> {
     data?: TData | string;
@@ -60,105 +60,106 @@ export declare const zStatementObj: z.ZodObject<{
             header: z.ZodObject<{
                 signature: z.ZodOptional<z.ZodString>;
             }, "strip", z.ZodTypeAny, {
-                signature?: string;
+                signature?: string | undefined;
             }, {
-                signature?: string;
+                signature?: string | undefined;
             }>;
         }, "strip", z.ZodTypeAny, {
-            data?: any;
-            _id?: string;
-            created_at?: Date;
-            is_encrypted?: boolean;
-            pubkey?: string;
-            variant?: string;
-            category?: "certificate";
-            header?: {
-                signature?: string;
+            header: {
+                signature?: string | undefined;
             };
+            _id: string;
+            category: "certificate";
+            created_at: Date;
+            is_encrypted: boolean;
+            pubkey: string;
+            data?: any;
+            variant?: string | undefined;
         }, {
-            data?: any;
-            _id?: string;
-            created_at?: Date;
-            is_encrypted?: boolean;
-            pubkey?: string;
-            variant?: string;
-            category?: "certificate";
-            header?: {
-                signature?: string;
+            header: {
+                signature?: string | undefined;
             };
+            _id: string;
+            category: "certificate";
+            created_at: Date;
+            is_encrypted: boolean;
+            pubkey: string;
+            data?: any;
+            variant?: string | undefined;
         }>, "many">;
     }, "strip", z.ZodTypeAny, {
-        certificates?: {
-            data?: any;
-            _id?: string;
-            created_at?: Date;
-            is_encrypted?: boolean;
-            pubkey?: string;
-            variant?: string;
-            category?: "certificate";
-            header?: {
-                signature?: string;
+        certificates: {
+            header: {
+                signature?: string | undefined;
             };
+            _id: string;
+            category: "certificate";
+            created_at: Date;
+            is_encrypted: boolean;
+            pubkey: string;
+            data?: any;
+            variant?: string | undefined;
         }[];
     }, {
-        certificates?: {
-            data?: any;
-            _id?: string;
-            created_at?: Date;
-            is_encrypted?: boolean;
-            pubkey?: string;
-            variant?: string;
-            category?: "certificate";
-            header?: {
-                signature?: string;
+        certificates: {
+            header: {
+                signature?: string | undefined;
             };
+            _id: string;
+            category: "certificate";
+            created_at: Date;
+            is_encrypted: boolean;
+            pubkey: string;
+            data?: any;
+            variant?: string | undefined;
         }[];
     }>;
 }, "strip", z.ZodTypeAny, {
-    data?: any;
-    _id?: string;
-    created_at?: Date;
-    is_encrypted?: boolean;
-    pubkey?: string;
-    variant?: string;
-    category?: "statement";
-    header?: {
-        certificates?: {
-            data?: any;
-            _id?: string;
-            created_at?: Date;
-            is_encrypted?: boolean;
-            pubkey?: string;
-            variant?: string;
-            category?: "certificate";
-            header?: {
-                signature?: string;
+    header: {
+        certificates: {
+            header: {
+                signature?: string | undefined;
             };
+            _id: string;
+            category: "certificate";
+            created_at: Date;
+            is_encrypted: boolean;
+            pubkey: string;
+            data?: any;
+            variant?: string | undefined;
         }[];
     };
+    _id: string;
+    category: "statement";
+    created_at: Date;
+    is_encrypted: boolean;
+    pubkey: string;
+    data?: any;
+    variant?: string | undefined;
 }, {
-    data?: any;
-    _id?: string;
-    created_at?: Date;
-    is_encrypted?: boolean;
-    pubkey?: string;
-    variant?: string;
-    category?: "statement";
-    header?: {
-        certificates?: {
-            data?: any;
-            _id?: string;
-            created_at?: Date;
-            is_encrypted?: boolean;
-            pubkey?: string;
-            variant?: string;
-            category?: "certificate";
-            header?: {
-                signature?: string;
+    header: {
+        certificates: {
+            header: {
+                signature?: string | undefined;
             };
+            _id: string;
+            category: "certificate";
+            created_at: Date;
+            is_encrypted: boolean;
+            pubkey: string;
+            data?: any;
+            variant?: string | undefined;
         }[];
     };
+    _id: string;
+    category: "statement";
+    created_at: Date;
+    is_encrypted: boolean;
+    pubkey: string;
+    data?: any;
+    variant?: string | undefined;
 }>;
 export interface TStatementObj<TData = any> extends z.infer<typeof zStatementObj> {
     data?: TData | string;
 }
+//# sourceMappingURL=statement.types.d.ts.map

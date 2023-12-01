@@ -5,3 +5,4 @@ import BufferLike from "./buffer";
  */
 declare const hash: THash<BufferLike>;
 export default hash;
+//# sourceMappingURL=hash.d.ts.map

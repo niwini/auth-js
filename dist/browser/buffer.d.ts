@@ -91,3 +91,4 @@ export default class BufferLike implements TBufferLike {
  */
 export declare function makeBufferLike(input: TBufferLikeInput): BufferLike;
 export * from "../core/buffer.types";
+//# sourceMappingURL=buffer.d.ts.map

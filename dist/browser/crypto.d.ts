@@ -7,3 +7,4 @@ declare const crypto: {
     secp: import("../core/secp.types").TSECP<BufferLike>;
 };
 export default crypto;
+//# sourceMappingURL=crypto.d.ts.map

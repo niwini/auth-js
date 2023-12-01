@@ -4,3 +4,4 @@ import { TSECP } from "./core/secp.types";
  */
 declare const secp: TSECP;
 export default secp;
+//# sourceMappingURL=secp.d.ts.map
