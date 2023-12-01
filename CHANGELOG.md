@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/niwini/auth-js/compare/v3.0.1...v3.0.2) (2023-12-01)
+
+
+### Bug Fixes
+
+* set _crypto as abstract to be overriden in concrete classes ([bcf9656](https://github.com/niwini/auth-js/commit/bcf96561c294acd5c1105d055b269bc09771334a))
+
 ## [3.0.1](https://github.com/niwini/auth-js/compare/v3.0.0...v3.0.1) (2023-11-29)
 
 

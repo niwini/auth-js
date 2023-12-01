@@ -1,7 +1,7 @@
 {
   "name": "@niwini/auth",
   "packageManager": "yarn@3.4.1",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "main": "index.js",
   "browser": "browser.js",
   "scripts": {
