@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/niwini/auth-js/compare/v3.0.2...v3.1.0) (2023-12-31)
+
+
+### Features
+
+* add new md5 function to hash module ([3008a05](https://github.com/niwini/auth-js/commit/3008a05dd835ac3ebe0c3bf95b9aab170175ae7c))
+
 ## [3.0.2](https://github.com/niwini/auth-js/compare/v3.0.1...v3.0.2) (2023-12-01)
 
 

@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable @typescript-eslint/naming-convention */
+const crypto_1 = __importDefault(require("crypto"));
 const hmac_1 = require("@noble/hashes/hmac");
 const sha256_1 = require("@noble/hashes/sha256");
 const sha3_1 = require("@noble/hashes/sha3");
@@ -31,6 +32,16 @@ const hash = {
      */
     keccak256(msg) {
         return buffer_1.default.from((0, sha3_1.keccak_256)(buffer_1.default.cast(msg).toBuffer()));
+    },
+    /**
+     * This function is going to hash a message using
+     * md5 hash algorithm
+     *
+     * @param msg -
+     * @param secret -
+     */
+    md5(msg) {
+        return buffer_1.default.from(crypto_1.default.createHash("md5").update(buffer_1.default.from(msg).toBuffer()).digest());
     },
     /**
      * This function hash the provided message using the

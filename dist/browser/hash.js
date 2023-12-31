@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable import/prefer-default-export */
 const hmac_sha256_1 = __importDefault(require("crypto-js/hmac-sha256"));
+const md5_1 = __importDefault(require("crypto-js/md5"));
 const sha256_1 = __importDefault(require("crypto-js/sha256"));
 const sha512_1 = __importDefault(require("crypto-js/sha512"));
 const js_sha3_1 = require("js-sha3");
@@ -31,6 +32,16 @@ const hash = {
      */
     keccak256(msg) {
         return buffer_1.default.from((0, js_sha3_1.keccak256)(buffer_1.default.cast(msg).toBuffer()));
+    },
+    /**
+     * This function is going to hash a message using
+     * md5 hash algorithm
+     *
+     * @param msg -
+     * @param secret -
+     */
+    md5(msg) {
+        return buffer_1.default.from((0, md5_1.default)(buffer_1.default.from(msg).toWordArray()));
     },
     /**
      * This function hash the provided message using the

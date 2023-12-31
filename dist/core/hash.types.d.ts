@@ -12,6 +12,14 @@ export interface THash<IBufferLike extends TBufferLike = TBufferLike> {
      */
     hmac256(msg: TBufferLikeInput, secret: TBufferLikeInput): IBufferLike;
     /**
+     * This function is going to hash a message using
+     * md5 hash algorithm
+     *
+     * @param msg -
+     * @param secret -
+     */
+    md5(msg: TBufferLikeInput): IBufferLike;
+    /**
      * This function hash the provided message using the
      * sha3 algo with 256 bits (= 32 bytes) of size.
      *
