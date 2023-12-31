@@ -1,5 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import jsHmac256 from "crypto-js/hmac-sha256";
+import jsMd5 from "crypto-js/md5";
 import jsSha256 from "crypto-js/sha256";
 import jsSha512 from "crypto-js/sha512";
 import {
@@ -45,6 +46,21 @@ const hash: THash<BufferLike> = {
   ) {
     return BufferLike.from(
       jsKeccak256(BufferLike.cast(msg).toBuffer()),
+    );
+  },
+
+  /**
+   * This function is going to hash a message using
+   * md5 hash algorithm
+   *
+   * @param msg -
+   * @param secret -
+   */
+  md5(
+    msg: TBufferLikeInput,
+  ) {
+    return BufferLike.from(
+      jsMd5(BufferLike.from(msg).toWordArray()),
     );
   },
 

@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import crypto from "crypto";
+
 import { hmac } from "@noble/hashes/hmac";
 import { sha256 as nobleSha256 } from "@noble/hashes/sha256";
 import {
@@ -45,6 +47,21 @@ const hash: THash = {
   ) {
     return BufferLike.from(
       keccak_256(BufferLike.cast(msg).toBuffer()),
+    );
+  },
+
+  /**
+   * This function is going to hash a message using
+   * md5 hash algorithm
+   *
+   * @param msg -
+   * @param secret -
+   */
+  md5(
+    msg: TBufferLikeInput,
+  ) {
+    return BufferLike.from(
+      crypto.createHash("md5").update(BufferLike.from(msg).toBuffer()).digest(),
     );
   },
 
